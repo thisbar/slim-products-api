@@ -1,5 +1,7 @@
 <?php
 
+use App\Actions\Swagger\GetSwaggerSchemaAction;
+use App\Actions\Swagger\ViewSwaggerUIAction;
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
 
@@ -8,6 +10,14 @@ return function (App $app) {
     $app->get(
         '/',
         \App\Actions\WelcomeAction::class
+    );
+
+    $app->group(
+        '/api-docs',
+        function (RouteCollectorProxy $group) {
+            $group->get('', ViewSwaggerUIAction::class);
+            $group->get('/schema', GetSwaggerSchemaAction::class);
+        }
     );
 
     $app->group(
