@@ -11,10 +11,24 @@ use Doctrine\ORM\EntityManager;
 use App\Providers\DoctrineProvider;
 use App\Providers\ViewProvider;
 use Odan\Session\PhpSession;
+use Odan\Session\SessionInterface;
+use OpenApi\Annotations as OA;
 use Psr\Container\ContainerInterface;
 use Slim\App;
 
-
+/**
+ * @OA\Info(
+ *   title="Products API",
+ *   version="1.0.0",
+ *   summary="This is API is for the Products service.",
+ *   description="This API allows to manipulate the products of the ecommerce.",
+ *   @OA\Contact(
+ *     name="API Support",
+ *     url="https://shop.lautaroaguirre.com",
+ *     email="api.shop@lautaroaguirre.com"
+ *   )
+ * )
+ */
 class Application
 {
     protected $container;
@@ -63,8 +77,6 @@ class Application
 
     public function includeSettings(): array
     {
-        $settings = include_once __DIR__ . '/config/settings.php';
-
-        return $settings;
+        return include __DIR__ . '/config/settings.php';
     }
 }
