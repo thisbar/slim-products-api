@@ -17,16 +17,38 @@ use Psr\Container\ContainerInterface;
 use Slim\App;
 
 /**
- * @OA\Info(
- *   title="Products API",
- *   version="1.0.0",
- *   summary="This is API is for the Products service.",
- *   description="This API allows to manipulate the products of the ecommerce.",
- *   @OA\Contact(
- *     name="API Support",
- *     url="https://shop.lautaroaguirre.com",
- *     email="api.shop@lautaroaguirre.com"
- *   )
+ * @OA\OpenApi(
+ *    @OA\Info(
+ *       title="Products API",
+ *       version="1.0.0",
+ *       summary="This is API is for the Products service.",
+ *       description="This API allows to manipulate the products of the ecommerce.",
+ *       @OA\Contact(
+ *         name="API Support",
+ *         url="https://shop.lautaroaguirre.com",
+ *         email="api.shop@lautaroaguirre.com"
+ *       ),
+ *       @OA\License(
+ *          name="Apache 2.0",
+ *          url="https://www.apache.org/licenses/LICENSE-2.0.html"
+ *       )
+ *    ),
+ *    @OA\Server(
+ *      description="Development server",
+ *      url="https://localhost:8080/v1"
+ *    ),
+ *    @OA\Server(
+ *      description="Production server",
+ *      url="https://shop.lautaroaguirre.com/v1"
+ *    ),
+ *    @OA\Tag(name="products", description="Operations to create, read, update and delete Products."),
+ *    @OA\Tag(name="api-docs", description="Endpoints of documentation of this API.",
+ *     @OA\ExternalDocumentation(
+ *      description="Find out more about Swagger and OpenAPI",
+ *      url="https://swagger.io"
+ *     )
+ *    ),
+ *    @OA\Tag(name="default", description="Miscellaneous routes."),
  * )
  */
 class Application
@@ -80,3 +102,4 @@ class Application
         return include __DIR__ . '/config/settings.php';
     }
 }
+

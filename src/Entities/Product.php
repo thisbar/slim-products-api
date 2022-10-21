@@ -3,10 +3,16 @@
 namespace App\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
+use OpenApi\Annotations as OA;
 
 /**
  * @ORM\Entity(repositoryClass="ProductRepository")
  * @ORM\Table(name="products")
+ *
+ * @OA\Schema(
+ *     required={"name", "slug", "price", "stock"}
+ * )
+ *
  */
 class Product
 {
@@ -14,36 +20,95 @@ class Product
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
+     *
+     * @OA\Property(
+     *  description="Unique autoincremental ID for the product.",
+     *  readOnly=true,
+     *  minimum="1",
+     *  type="integer",
+     *  format="int64",
+     *  example="1"
+     * )
      */
     private $id;
 
     /**
      * @ORM\Column(type="string")
+     *
+     * @OA\Property(
+     *  description="Name or title of the product.",
+     *  type="string",
+     *  minLength="3",
+     *  maxLength="60",
+     *  example="Laptop 15" i5 - 16GB RAM - 250 SSD"
+     * )
      */
     private $name;
 
     /**
      * @ORM\Column(type="string")
+     *
+     * @OA\Property(
+     *  description="Friendly URL for the product",
+     *  type="string",
+     *  pattern="^[0-9-a-zA-Z]+$",
+     *  minLength="5",
+     *  maxLength="50",
+     *  example="laptop-15-i5-16gb-250ssd"
+     * )
      */
     private $slug;
 
     /**
      * @ORM\Column(type="text")
+     *
+     * @OA\Property(
+     *  description="Description and information about the product.",
+     *  type="string",
+     *  minLength="100",
+     *  maxLength="1500",
+     *  example="La notebook HP Pavilion 15-eh0004la es una solución tanto para trabajar y estudiar como para entretenerte. Al ser portátil, el escritorio dejará de ser tu único espacio de uso para abrirte las puertas a otros ambientes ya sea en tu casa o en la oficina.
+     * )
      */
     private $description;
 
     /**
      * @ORM\Column(type="float")
+     *
+     * @OA\Property(
+     *  escription="Price of the product",
+     *  type="number",
+     *  format="float",
+     *  minimum="0.50",
+     *  example="349.99"
+     * )
      */
     private $price;
 
     /**
      * @ORM\Column(type="integer")
+     *
+     * @OA\Property(
+     *  description="Amount of available stock.",
+     *  type="integer",
+     *  format="int32",
+     *  minimum="0",
+     *  maximum="1000",
+     *  example="152"
+     * )
      */
     private $stock;
 
     /**
      * @ORM\Column(type="string")
+     *
+     * @OA\Property(
+     *  description="Keywords separated by commas used to make search operations.",
+     *  type="string",
+     *  pattern="(.+?)(?:,|$)",
+     *  minLength="50",
+     *  example="laptop, core i5, ssd"
+     * )
      */
     private $keywords;
 

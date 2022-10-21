@@ -5,11 +5,28 @@ namespace App\Actions\Products;
 use App\Actions\Action;
 use App\Entities\Product;
 use App\Entities\ProductRepository;
+use OpenApi\Annotations as OA;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-
+/**
+ *
+ * @OA\Delete(
+ *     path="/deleteProduct/{id}",
+ *     summary="Delete a product.",
+ *     tags={"products"},
+ *     @OA\PathParameter(
+ *      ref="#/components/parameters/ProductID",
+ *     ),
+ *     @OA\Response(
+ *      response=200,
+ *      description="Product deleted successfully by ID.",
+ *       @OA\JsonContent(example="Product deleted successfully"),
+ *     ),
+ *     @OA\Response(response=404, ref="#/components/responses/NotFound"),
+ * )
+ */
 class DeleteProductAction extends Action
 {
     protected $productRepository;
@@ -28,12 +45,12 @@ class DeleteProductAction extends Action
     {
         /**
          * Product domain
-         * 
+         *
          * @var \App\Entities\Product
          */
         $this->productRepository->destroy($id);
 
-        $response->getBody()->write("Product deleted succesfully");
+        $response->getBody()->write("Product deleted successfully");
 
         return $response;
     }
